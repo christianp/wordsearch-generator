@@ -39,9 +39,17 @@
 	<button class="control" id="reroll">Try again</button>
 	<button class="control" id="print">Print</button>
 
-	<table id="wordsearch"></table>
-	<p class="control">(You can click on a letter to change it)</p>
+	<div id="output">
+		<table id="wordsearch"></table>
+		<p class="explanation control">(You can click on a letter to change it)</p>
+		<div class="control">
+			LaTeX:
+			<pre class="control" id="tex"></pre>
+		</div>
+	</div>
+
 	<p id="error"></p>
+
 
 	<script src='js/jquery.js'></script>
 

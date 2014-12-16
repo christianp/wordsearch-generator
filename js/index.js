@@ -109,18 +109,31 @@ $(document).ready(function() {
 				directions.push(direction_names[direction_name]);
 			}
 		}
-		console.log(directions);
 
 		$('#wordsearch').html('');
 		try {
 			var grid = wordsearch(words,size,directions);
-			$('#wordsearch').show();
+			$('#output').show();
 			$('#error').hide();
 		} catch(e) {
-			$('#wordsearch').hide();
+			$('#output').hide();
 			$('#error').show().text(e.message);
 			return;
 		}
+
+		var tex = '\
+\\documentclass{standalone}\n\n\
+\\usepackage[thinlines]{easytable}\n\n\
+\\begin{document}\n\n\
+\\begin{TAB}(e,15pt,15pt){|';
+		for(var i=0;i<size;i++) {
+			tex += 'c|';
+		}
+		tex += '}{|';
+		for(var i=0;i<size;i++) {
+			tex += 'c|';
+		}
+		tex +='}\n';
 		
 		grid.map(function(row) {
 			var tr = $('<tr/>');
@@ -128,16 +141,21 @@ $(document).ready(function() {
 				var input = $('<input>').val(letter);
 				tr.append($('<td>').append(input));
 			})
+			tex += row.join(' & ')+' \\\\ \n';
 			$('#wordsearch').append(tr);
 		})
 
+		tex += '\
+\\end{TAB}\n\n\
+\\end{document}';
+
 		$('#wordsearch').css('font-size',(22/(2*size))+'cm');
+		$('#tex').text(tex);
 	}
 
 	go();
 
 	$('#words,#gridsize').on('change keyup',function() {
-		console.log('a');
 		go(); 
 	});
 	$('#directions td').on('click',function() {

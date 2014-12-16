@@ -24,6 +24,9 @@
     text-align: center;
 	text-transform: uppercase;
 }
+.explanation {
+	text-align: center;
+}
 
 #directions {
 	display: inline-block;
