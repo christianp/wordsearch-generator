@@ -3,7 +3,7 @@
 }
 
 #wordsearch {
-	font-size: 1.5em;
+	font-size: 1.5cm;
 	border-collapse: collapse;
 	margin: 0 auto;
 }
@@ -15,18 +15,35 @@
 	vertical-align: middle;
 	border: 1px solid #555;
 }
-#wordsearch tr:first-child td:first-child {
-	border-radius: 5px 0 0 0;
+#wordsearch input {
+    width: 1.3em;
+	height: 1.3em;
+	padding: 0;
+    font-size: 1.5em;
+    border: 0;
+    text-align: center;
+	text-transform: uppercase;
 }
-#wordsearch tr:first-child td:last-child {
-	border-radius: 0 5px 0 0;
+
+#directions {
+	display: inline-block;
+	vertical-align: middle;
 }
-#wordsearch tr:last-child td:first-child {
-	border-radius: 0 0 0 5px;
+
+#directions td {
+	position: relative;
+	cursor: pointer;
+	color: #aaa;
+	width: 1em;
+	height: 1em;
+	text-align: center;
+	font-size: 1.5em;
 }
-#wordsearch tr:last-child td:last-child {
-	border-radius: 0 0 5px 0;
+#directions td.on {
+	color: black;
+	font-weight: bold;
 }
+
 @media print {
 	.control {
 		display: none;

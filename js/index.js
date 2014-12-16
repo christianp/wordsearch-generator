@@ -105,7 +105,7 @@ $(document).ready(function() {
 		}
 		var directions = [];
 		for(var direction_name in direction_names) {
-			if($('#directions input[name="'+direction_name+'"]').prop('checked')) {
+			if($('#directions .'+direction_name).hasClass('on')) {
 				directions.push(direction_names[direction_name]);
 			}
 		}
@@ -125,18 +125,27 @@ $(document).ready(function() {
 		grid.map(function(row) {
 			var tr = $('<tr/>');
 			row.map(function(letter) {
-				tr.append($('<td/>').text(letter));
+				var input = $('<input>').val(letter);
+				tr.append($('<td>').append(input));
 			})
 			$('#wordsearch').append(tr);
 		})
+
+		$('#wordsearch').css('font-size',(22/(2*size))+'cm');
 	}
 
 	go();
 
-	$('#words,#gridsize,#directions input').on('change keyup',function() {
+	$('#words,#gridsize').on('change keyup',function() {
 		console.log('a');
 		go(); 
 	});
+	$('#directions td').on('click',function() {
+		$(this).toggleClass('on');
+		go();
+	});
+	$('#wordsearch input').on('focus mouseup',function(){ $(this).select(); return false; });
+	$('#wordsearch input').on('keyup change',function() {$(this).val($(this).val().toUpperCase()); });
 	$('#reroll').on('click',go);
 	$('#print').on('click',function(){window.print()});
 

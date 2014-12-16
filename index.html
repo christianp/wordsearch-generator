@@ -19,27 +19,29 @@
 		Directions:
 		<table class="control" id="directions">
 			<tr>
-				<td><input type="checkbox" checked="false" name="up-left"/></td>
-				<td><input type="checkbox" checked="false" name="up-none"/></td>
-				<td><input type="checkbox" checked="false" name="up-right"/></td>
+				<td class="up-left">&#8598;</td>
+				<td class="up-none">&#8593;</td>
+				<td class="up-right">&#8599;</td>
 			</tr>
 			<tr>
-				<td><input type="checkbox" checked="false" name="none-left"/></td>
+				<td class="none-left">&#8592;</td>
 				<td></td>
-				<td><input type="checkbox" checked="true" name="none-right"/></td>
+				<td class="none-right on">&#8594;</td>
 			</tr>
 			<tr>
-				<td><input type="checkbox" checked="false" name="down-left"/></td>
-				<td><input type="checkbox" checked="true" name="down-none"/></td>
-				<td><input type="checkbox" checked="true" name="down-right"/></td>
+				<td class="down-left">&#8601;</td>
+				<td class="down-none on">&#8595;</td>
+				<td class="down-right on">&#8600;</td>
 			</tr>
 		</table>
 	</div>
 
-	<table id="wordsearch"></table>
-	<p id="error"></p>
 	<button class="control" id="reroll">Try again</button>
 	<button class="control" id="print">Print</button>
+
+	<table id="wordsearch"></table>
+	<p class="control">(You can click on a letter to change it)</p>
+	<p id="error"></p>
 
 	<script src='js/jquery.js'></script>
 
