@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>Wordsearch generator</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
+
+</head>
+
+<body>
+
+	<p class="control"><label>Words: <input type="text" id="words" value="abelian semigroup commutator quotient product"/></label></p>
+	<p class="control"><label>Grid size: <input id="gridsize" type="number" value="10"/></label></p>
+	<div class="control">
+		Directions:
+		<table class="control" id="directions">
+			<tr>
+				<td><input type="checkbox" checked="false" name="up-left"/></td>
+				<td><input type="checkbox" checked="false" name="up-none"/></td>
+				<td><input type="checkbox" checked="false" name="up-right"/></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" checked="false" name="none-left"/></td>
+				<td></td>
+				<td><input type="checkbox" checked="true" name="none-right"/></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" checked="false" name="down-left"/></td>
+				<td><input type="checkbox" checked="true" name="down-none"/></td>
+				<td><input type="checkbox" checked="true" name="down-right"/></td>
+			</tr>
+		</table>
+	</div>
+
+	<table id="wordsearch"></table>
+	<p id="error"></p>
+	<button class="control" id="reroll">Try again</button>
+	<button class="control" id="print">Print</button>
+
+	<script src='js/jquery.js'></script>
+
+	<script src="js/index.js"></script>
+
+</body>
+
+</html>

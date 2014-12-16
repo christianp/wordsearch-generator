@@ -1,0 +1,34 @@
+#words {
+	width: 90%;
+}
+
+#wordsearch {
+	font-size: 1.5em;
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+
+#wordsearch td {
+	width: 1.5em;
+	height: 1.5em;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid #555;
+}
+#wordsearch tr:first-child td:first-child {
+	border-radius: 5px 0 0 0;
+}
+#wordsearch tr:first-child td:last-child {
+	border-radius: 0 5px 0 0;
+}
+#wordsearch tr:last-child td:first-child {
+	border-radius: 0 0 0 5px;
+}
+#wordsearch tr:last-child td:last-child {
+	border-radius: 0 0 5px 0;
+}
+@media print {
+	.control {
+		display: none;
+	}
+}
