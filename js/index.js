@@ -155,7 +155,7 @@ $(document).ready(function() {
 			grid.map(function(row,y) {
 				html += '<tr>';
 				row.map(function(letter,x) {
-					html += '<td>'+letter+'</td>';
+					html += '<td> '+letter+' </td>';
 				})
 				tex += row.join(' & ')+' \\\\ \n';
 				html += '</tr>\n';
