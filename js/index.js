@@ -134,23 +134,30 @@ $(document).ready(function() {
 			tex += 'c|';
 		}
 		tex +='}\n';
+
+		var html = '<table>\n';
 		
 		grid.map(function(row) {
 			var tr = $('<tr/>');
+			html += '<tr>';
 			row.map(function(letter) {
 				var input = $('<input>').val(letter);
 				tr.append($('<td>').append(input));
+				html += '<td>'+letter+'</td>';
 			})
 			tex += row.join(' & ')+' \\\\ \n';
+			html += '</tr>\n';
 			$('#wordsearch').append(tr);
 		})
-
 		tex += '\
 \\end{TAB}\n\n\
 \\end{document}';
 
+		html += '</table>';
+
 		$('#wordsearch').css('font-size',(22/(2*size))+'cm');
 		$('#tex').text(tex);
+		$('#html').text(html);
 	}
 
 	go();
