@@ -121,27 +121,11 @@ $(document).ready(function() {
 			return;
 		}
 
-		var tex = '\
-\\documentclass{standalone}\n\n\
-\\usepackage[thinlines]{easytable}\n\n\
-\\begin{document}\n\n\
-\\begin{TAB}(e,15pt,15pt){|';
-		for(var i=0;i<size;i++) {
-			tex += 'c|';
-		}
-		tex += '}{|';
-		for(var i=0;i<size;i++) {
-			tex += 'c|';
-		}
-		tex +='}\n';
-
-		var html = '<table>\n';
-		
-		grid.map(function(row) {
+		grid.map(function(row,y) {
 			var tr = $('<tr/>');
 			html += '<tr>';
-			row.map(function(letter) {
-				var input = $('<input>').val(letter);
+			row.map(function(letter,x) {
+				var input = $('<input maxlength=1>').val(letter).attr('x',x).attr('y',y);
 				tr.append($('<td>').append(input));
 				html += '<td>'+letter+'</td>';
 			})
@@ -149,15 +133,55 @@ $(document).ready(function() {
 			html += '</tr>\n';
 			$('#wordsearch').append(tr);
 		})
-		tex += '\
+		
+		function makeCode() {
+			var tex = '\
+\\documentclass{standalone}\n\n\
+\\usepackage[thinlines]{easytable}\n\n\
+\\begin{document}\n\n\
+\\begin{TAB}(e,15pt,15pt){|';
+			for(var i=0;i<size;i++) {
+				tex += 'c|';
+			}
+			tex += '}{|';
+			for(var i=0;i<size;i++) {
+				tex += 'c|';
+			}
+			tex +='}\n';
+
+			var html = '<table>\n';
+		
+
+			grid.map(function(row,y) {
+				html += '<tr>';
+				row.map(function(letter,x) {
+					html += '<td>'+letter+'</td>';
+				})
+				tex += row.join(' & ')+' \\\\ \n';
+				html += '</tr>\n';
+			})
+
+
+			tex += '\
 \\end{TAB}\n\n\
 \\end{document}';
 
-		html += '</table>';
+			html += '</table>';
+			$('#tex').text(tex);
+			$('#html').text(html);
+		};
+		makeCode();
 
 		$('#wordsearch').css('font-size',(22/(2*size))+'cm');
-		$('#tex').text(tex);
-		$('#html').text(html);
+
+
+		$('#wordsearch input').on('change',function() {
+			var x = parseInt($(this).attr('x'));
+			var y = parseInt($(this).attr('y'));
+			console.log(x,y);
+			grid[y][x] = $(this).val();
+			makeCode();
+		});
 	}
 
 	go();
@@ -169,8 +193,8 @@ $(document).ready(function() {
 		$(this).toggleClass('on');
 		go();
 	});
-	$('#wordsearch input').on('focus mouseup',function(){ $(this).select(); return false; });
-	$('#wordsearch input').on('keyup change',function() {$(this).val($(this).val().toUpperCase()); });
+	$('#wordsearch').delegate('input','focus mouseup',function(){ $(this).select(); return false; });
+	$('#wordsearch').delegate('input','keyup',function() {$(this).val($(this).val().toUpperCase()); $(this).trigger('change'); });
 	$('#reroll').on('click',go);
 	$('#print').on('click',function(){window.print()});
 
