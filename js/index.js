@@ -27,8 +27,8 @@ $(document).ready(function() {
 		}
 	}
 
-	var alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-	var weights = [
+	var latin_alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	var latin_weights = [
 		0.08167,
 		0.01492,
 		0.02782,
@@ -56,9 +56,8 @@ $(document).ready(function() {
 		0.01974,
 		0.00074
 	];
-	console.log(weights.reduce(function(a,b){return a+b},0));
 
-	function wordsearch(words,size,directions) {
+	function wordsearch(words,size,directions,alphabet,weights) {
 		words = words.map(function(word){ return word.toUpperCase();});
 		
 		var grid = [];
@@ -130,7 +129,7 @@ $(document).ready(function() {
 
 
 	function go() {
-		var words = $('#words').val().split(' ');
+		var words = $('#words').val().split(/\s+/);
 		var size = parseInt($('#gridsize').val());
 
 		var direction_names = {
@@ -150,9 +149,12 @@ $(document).ready(function() {
 			}
 		}
 
+        var alphabet = $('#alphabet').val().toUpperCase().replace(/\s/g,'');
+        var weights = alphabet==latin_alphabet ? latin_weights : alphabet.split('').map(function(x) { return 1/alphabet.length; });
+
 		$('#wordsearch').html('');
 		try {
-			var grid = wordsearch(words,size,directions);
+			var grid = wordsearch(words,size,directions,alphabet,weights);
 			$('#output').show();
 			$('#error').hide();
 		} catch(e) {
@@ -218,7 +220,6 @@ $(document).ready(function() {
 		$('#wordsearch input').on('change',function() {
 			var x = parseInt($(this).attr('x'));
 			var y = parseInt($(this).attr('y'));
-			console.log(x,y);
 			grid[y][x] = $(this).val();
 			makeCode();
 		});
